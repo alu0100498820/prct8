@@ -14,5 +14,11 @@ describe Matriz do
                        @m1.colum.should eq(2)
                end
         end
+
+	describe "Operaciones de matrices" do
+                it "suma de matrices" do
+                      @m1.+(@m1).to_s.should eq(@m2.to_s)
+                end
+        end
 end
 
