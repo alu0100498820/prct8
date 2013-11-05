@@ -19,6 +19,9 @@ describe Matriz do
                 it "suma de matrices" do
                       @m1.+(@m1).to_s.should eq(@m2.to_s)
                 end
+		it "resta de matrices" do
+                        @m2.-(@m1).to_s.should eq(@m1.to_s)
+                end
         end
 end
 
