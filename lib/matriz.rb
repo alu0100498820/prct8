@@ -1,72 +1,65 @@
 class Matriz
 
-        attr_accessor :fil, :colum, :elem
+        attr_accessor :fila, :columna, :matriz
 
-        def initialize(fil, colum, elem)
-                @fil = fil
-                @colum = colum
-                @elem = Array.new(elem)
+        def initialize(m)
+                @fila = m.size
+                @columna = m[1].size
+                @matriz = m
         end
 
+   # Suma entre dos Matrices
 
-	def to_s
-                imp = ""
-                @fil.times do |i|
-                        @colum.times do |j|
-                                imp << "#{elem[i][j]} "
-                        end
-                        imp << "\n"
-                end
-                imp
+    def +(other)
+      i=0
+      	m_aux = @matriz
+            while i < @fila
+             j=0
+          	while j < @columna
+            	   m_aux[i][j] = m_aux[i][j] + other.matriz[i][j]
+              	   j += 1
+          	end
+             i += 1
         end
+        Matriz.new(m_aux)
+    end
 
-	# Suma entre dos Matrices
-	def +(other)
-                
-                elem = Array.new
-                @fil.times do |i|
-                        elem_fil = Array.new
-                        @colum.times do |j|
-                                elem_fil << @elem[i][j] + other.elem[i][j]
-                        end
-                        elem << elem_fil
-                end
-                Matriz.new(@fil, @colum,elem)
+   # Resta entre dos Matrices 
+
+    def -(other)
+      i=0
+      	m_aux = @matriz
+            while i < @fila
+             j=0
+          	while j < @columna
+            	   m_aux[i][j] = m_aux[i][j] - other.matriz[i][j]
+              	   j += 1
+          	end
+             i += 1
         end
+        Matriz.new(m_aux)
+    end
 
-	# Resta entre dos Matrices 
+  # Multiplicacion de 2 matrices
 
-	def -(other)
-                
-                elem = Array.new
-                @fil.times do |i|
-                        elem_fil = Array.new
-                        @colum.times do |j|
-                                elem_fil << @elem[i][j] - other.elem[i][j]
-                        end
-                        elem << elem_fil
-                end
-                Matriz.new(@fil, @colum,elem)
-        end
+ def * (other)
+    i=0
+      m_aux = Array.new(@fila) {Array.new(other.columna,0)}
+      while i < @fila
+            j = 0
+              while j < other.columna
+                  m_aux[i][j] = 0
+                  k = 0
+                    while k < @columna
+                      m_aux[i][j] += matriz[i][k] * other.matriz[k][j]
+                      k += 1
+                    end
+                    j +=1
+              end
+              i +=1
+      end
+      Matriz.new(m_aux)
+  end
 
-	#Multiplicacion de 2 matrices
-
-	def *(other)
-                
-                elem = Array.new
-                cont = 0
-                @fil.times do |i|
-                        elem_fil = Array.new
-                        other.colum.times do |j|
-                                cont = 0
-                                @colum.times do |k|
-                                        cont += @elem[i][k] * other.elem[k][j]
-                                end
-                                elem_fil << cont
-                        end
-                        elem << elem_fil
-                end
-                Matriz.new(@fil, other.colum, elem)
-        end
 
 end
